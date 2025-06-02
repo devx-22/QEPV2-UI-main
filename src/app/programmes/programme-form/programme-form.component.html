@@ -1,0 +1,18 @@
+<h2>Créer un Nouveau Programme</h2>
+<form (ngSubmit)="onSubmit()">
+  <label>Nom:</label>
+  <input [(ngModel)]="programme.nom" name="nom" required><br>
+
+  <label>Type:</label>
+  <select [(ngModel)]="programme.type" name="type" required>
+    <option value="Surveillance">Surveillance</option>
+    <option value="Réclamation">Réclamation</option>
+    <option value="Contrôle de désinfection">Contrôle de désinfection</option>
+  </select><br>
+
+  <label>Date de création:</label>
+  <input type="date" [(ngModel)]="programme.dateCreation" name="dateCreation"><br>
+
+  <button type="submit">Créer</button>
+</form>
+

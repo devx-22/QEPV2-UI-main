@@ -1,0 +1,24 @@
+<!-- TOP NAVBAR -->
+<nav class="navbar">
+  <a routerLink="/prelevements">Prélèvements</a>
+  <a routerLink="/statistiques">Statistiques</a>
+  <a routerLink="/administration">Administration</a>
+  <a routerLink="/qep">QEP</a>
+</nav>
+
+<!-- QEP SIDEBAR (only shows on /qep routes) -->
+<div class="layout">
+  <div class="sidebar" *ngIf="showQepMenu">
+    <ul>
+      <li><a routerLink="/qep/programmes">Programmes et activités</a></li>
+      <li><a routerLink="/qep/circuits">Circuits des prélèvements</a></li>
+      <li><a routerLink="/qep/grille">Grille d’analyse</a></li>
+      <li><a routerLink="/qep/normes">Normes et réglementations</a></li>
+      <li><a routerLink="/qep/utilisateurs">Gestion des utilisateurs</a></li>
+    </ul>
+  </div>
+
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
