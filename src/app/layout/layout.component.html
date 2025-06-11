@@ -1,24 +1,78 @@
-<!-- TOP NAVBAR -->
-<nav class="navbar">
-  <a routerLink="/prelevements">Prélèvements</a>
-  <a routerLink="/statistiques">Statistiques</a>
-  <a routerLink="/administration">Administration</a>
-  <a routerLink="/qep">QEP</a>
-</nav>
+<div class="flex h-screen text-sm font-sans text-gray-900">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-[#2d2f38] text-white flex flex-col px-4 pt-6">
+    <!-- QEP Title -->
+    <div class="text-xl font-bold mb-6 tracking-wide">QEP</div>
 
-<!-- QEP SIDEBAR (only shows on /qep routes) -->
-<div class="layout">
-  <div class="sidebar" *ngIf="showQepMenu">
-    <ul>
-      <li><a routerLink="/qep/programmes">Programmes et activités</a></li>
-      <li><a routerLink="/qep/circuits">Circuits des prélèvements</a></li>
-      <li><a routerLink="/qep/grille">Grille d’analyse</a></li>
-      <li><a routerLink="/qep/normes">Normes et réglementations</a></li>
-      <li><a routerLink="/qep/utilisateurs">Gestion des utilisateurs</a></li>
-    </ul>
-  </div>
+    <!-- PRÉLÈVEMENTS (Button) -->
+    <div class="mb-4">
+      <a routerLink="/prelevements" routerLinkActive="bg-[#3e404b]"
+         class="block text-left w-full uppercase text-xs text-gray-400 px-2 py-1 hover:bg-[#3e404b] rounded">
+        PRÉLÈVEMENTS
+      </a>
+    </div>
 
-  <div class="content">
-    <router-outlet></router-outlet>
+    <!-- STATISTIQUES (Button) -->
+    <div class="mb-4">
+      <a routerLink="/statistiques" routerLinkActive="bg-[#3e404b]"
+         class="block text-left w-full uppercase text-xs text-gray-400 px-2 py-1 hover:bg-[#3e404b] rounded">
+        STATISTIQUES
+      </a>
+    </div>
+
+    <!-- ADMINISTRATION (Collapsible) -->
+    <div>
+      <!-- Header -->
+      <button (click)="toggleAdminSection()" class="flex items-center justify-between w-full px-2 py-1 rounded hover:bg-[#3e404b] text-left">
+        <span class="uppercase text-xs text-gray-400">ADMINISTRATION</span>
+        <svg [class.rotate-180]="showAdmin" class="w-4 h-4 text-gray-400 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      <!-- Content -->
+      <div *ngIf="showAdmin" class="mt-1">
+        <a class="block px-2 py-1 rounded hover:bg-[#3e404b]">Programmes et activités</a>
+        <a class="block px-2 py-1 rounded hover:bg-[#3e404b]">Circuits des prélèvements</a>
+        <a class="block px-2 py-1 rounded hover:bg-[#3e404b]">Grille d’analyse</a>
+        <a class="block px-2 py-1 rounded hover:bg-[#3e404b]">Normes et règlements</a>
+        <a class="block px-2 py-1 rounded hover:bg-[#3e404b]">Gestion des utilisateurs</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main content area -->
+  <div class="flex-1 flex flex-col">
+    <!-- Header -->
+    <header class="bg-white shadow-sm p-4 flex items-center justify-between border-b">
+      <!-- Left: Page title + Search -->
+      <div class="flex items-center gap-4">
+        <div class="text-base font-semibold">Prélèvements</div>
+
+        <!-- Search bar with icon -->
+        <div class="relative">
+          <input type="text"
+                 placeholder="Rechercher un prélèvement"
+                 class="pl-10 pr-3 py-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200 shadow-sm text-sm w-80"/>
+          <svg xmlns="http://www.w3.org/2000/svg"
+               class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+               fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Right: User label + avatar -->
+      <div class="flex items-center gap-4">
+        <span class="text-gray-700 text-sm">Responsable de Prélèvements</span>
+        <div class="w-8 h-8 bg-gray-400 rounded-full"></div>
+      </div>
+    </header>
+
+    <!-- Router outlet -->
+    <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
+      <router-outlet></router-outlet>
+    </main>
   </div>
 </div>
