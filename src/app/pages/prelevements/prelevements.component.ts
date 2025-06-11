@@ -25,24 +25,26 @@ export class PrelevementsComponent {
   programmes: string[] = [];
   dps: string[] = [];
   circuits: string[] = [];
+  uniqueProgrammes: string[] = [];
+  uniqueDps: string[] = [];
+  uniqueCircuits: string[] = [];
+
+  fetchPrelevements(): void {
+    this.prelevementService.getPrelevements().subscribe((res: Prelevement[]) => {
+      this.data = res.map(p => ({
+        ...p,
+        avancement: p.planifies ? Math.floor(((p.realises + p.termines) / p.planifies) * 100) : 0
+      }));
+      this.filteredData = [...this.data];
+      this.uniqueProgrammes = [...new Set(this.data.map(p => p.programme))];
+      this.uniqueDps = [...new Set(this.data.map(p => p.dp))];
+      this.uniqueCircuits = [...new Set(this.data.map(p => p.circuit))];
+    });
+  }
 
 
   constructor(private prelevementService: PrelevementService) {
     this.fetchPrelevements();
-  }
-
-  fetchPrelevements(): void {
-    this.prelevementService.getPrelevements().subscribe((res: Prelevement[]) => {
-      this.data = res.map((p: Prelevement) => {
-        const avancement = p.planifies > 0 ? Math.floor(((p.realises + p.termines) / p.planifies) * 100) : 0;
-        return { ...p, avancement };
-      });
-      this.filteredData = [...this.data];
-    });
-  }
-
-  get uniqueProgrammes(): string[] {
-    return Array.from(new Set(this.data.map(p => p.programme)));
   }
 
   toggleDropdown(index: number): void {
